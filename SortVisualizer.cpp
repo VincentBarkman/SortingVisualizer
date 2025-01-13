@@ -5,7 +5,6 @@
 SortVisualizer::SortVisualizer(int size)
     : arraySize(size), comparisons(0), swaps(0), stepsExecuted(0), isSorting(false) {
     array = new int[arraySize];
-    srand((unsigned int)time(NULL));
     resetArray();
     currentAlgorithm = BUBBLE_SORT;
     bubble_i = bubble_j = 0;
@@ -133,15 +132,15 @@ void SortVisualizer::Update(float sortSpeed) {
 
 void SortVisualizer::Render(SDL_Renderer* renderer, float barColor[3]) {
     int barWidth = 800 / (arraySize > 0 ? arraySize : 1);
+    SDL_SetRenderDrawColor(renderer,
+                           static_cast<Uint8>(barColor[0] * 255),
+                           static_cast<Uint8>(barColor[1] * 255),
+                           static_cast<Uint8>(barColor[2] * 255),
+                           255);
     for (int k = 0; k < arraySize; ++k) {
         float heightFactor = static_cast<float>(array[k]) / arraySize;
         int barHeight = static_cast<int>(heightFactor * 600);
         SDL_Rect rect = { k * barWidth, 600 - barHeight, barWidth, barHeight };
-        SDL_SetRenderDrawColor(renderer,
-                               static_cast<Uint8>(barColor[0]*255),
-                               static_cast<Uint8>(barColor[1]*255),
-                               static_cast<Uint8>(barColor[2]*255),
-                               255);
         SDL_RenderFillRect(renderer, &rect);
     }
 }
