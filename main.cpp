@@ -4,8 +4,8 @@
 #include "imgui_impl_sdlrenderer2.h"
 #include <SDL.h>
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+constexpr int SCREEN_WIDTH = 800;
+constexpr int SCREEN_HEIGHT = 600;
 
 int main(int, char **) {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
@@ -25,7 +25,7 @@ int main(int, char **) {
 
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
-  ImGuiIO &io = ImGui::GetIO();
+  const ImGuiIO &io = ImGui::GetIO();
   (void)io;
   ImGui::StyleColorsDark();
   ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
@@ -43,8 +43,6 @@ int main(int, char **) {
 
   int targetFPS = 144;
   bool unlimitedFPS = false;
-  Uint32 frameStart;
-  int frameTime;
 
   static Uint32 lastTime = SDL_GetTicks();
   static int frameCount = 0;
@@ -52,7 +50,7 @@ int main(int, char **) {
 
   bool done = false;
   while (!done) {
-    frameStart = SDL_GetTicks();
+    Uint32 frameStart = SDL_GetTicks();
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
       ImGui_ImplSDL2_ProcessEvent(&event);
@@ -112,17 +110,16 @@ int main(int, char **) {
     SDL_RenderPresent(renderer);
 
     frameCount++;
-    Uint32 currentTime = SDL_GetTicks();
+    const Uint32 currentTime = SDL_GetTicks();
     if(currentTime - lastTime >= 1000) {
         currentFPS = frameCount;
         frameCount = 0;
         lastTime = currentTime;
     }
 
-    // Frame rate limiting if not unlimited
     if (!unlimitedFPS) {
       int frameDelay = 1000 / targetFPS;
-      frameTime = SDL_GetTicks() - frameStart;
+      int frameTime = SDL_GetTicks() - frameStart;
       if (frameDelay > frameTime) {
         SDL_Delay(frameDelay - frameTime);
       }

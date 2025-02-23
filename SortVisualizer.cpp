@@ -1,6 +1,5 @@
 #include "SortVisualizer.h"
-#include <stdlib.h>
-#include <time.h>
+#include <ctime>
 
 SortVisualizer::SortVisualizer(int size)
     : arraySize(size), comparisons(0), swaps(0), stepsExecuted(0), isSorting(false) {
@@ -17,13 +16,13 @@ SortVisualizer::~SortVisualizer() {
     delete[] array;
 }
 
-void SortVisualizer::resetArray() {
+void SortVisualizer::resetArray() const {
     for (int i = 0; i < arraySize; ++i) {
         array[i] = rand() % arraySize + 1;
     }
 }
 
-void SortVisualizer::Reset(int newSize) {
+void SortVisualizer::Reset(const int newSize) {
     delete[] array;
     arraySize = newSize;
     array = new int[arraySize];
@@ -130,8 +129,8 @@ void SortVisualizer::Update(float sortSpeed) {
     }
 }
 
-void SortVisualizer::Render(SDL_Renderer* renderer, float barColor[3]) {
-    int barWidth = 800 / (arraySize > 0 ? arraySize : 1);
+void SortVisualizer::Render(SDL_Renderer* renderer, const float barColor[3]) const {
+    const int barWidth = 800 / (arraySize > 0 ? arraySize : 1);
     SDL_SetRenderDrawColor(renderer,
                            static_cast<Uint8>(barColor[0] * 255),
                            static_cast<Uint8>(barColor[1] * 255),

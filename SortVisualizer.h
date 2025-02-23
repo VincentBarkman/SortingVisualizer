@@ -7,14 +7,14 @@ enum Algorithm { BUBBLE_SORT, SELECTION_SORT, INSERTION_SORT, GNOME_SORT };
 
 class SortVisualizer {
 public:
-    SortVisualizer(int arraySize);
+    explicit SortVisualizer(int arraySize);
     ~SortVisualizer();
     void Reset(int newSize);
     void StartSorting(Algorithm algo);
     void TogglePause();
     void Step();
     void Update(float sortSpeed);
-    void Render(SDL_Renderer* renderer, float barColor[3]);
+    void Render(SDL_Renderer* renderer, const float barColor[3]) const;
     
     long long GetComparisons() const;
     long long GetSwaps() const;
@@ -38,7 +38,7 @@ private:
     int insertion_key;
     int gnome_index;
     
-    void resetArray();
+    void resetArray() const;
 };
 
 #endif // SORTVISUALIZER_H
