@@ -31,7 +31,7 @@ int main(int, char **) {
   ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
   ImGui_ImplSDLRenderer2_Init(renderer);
 
-  int initialArraySize = 100;
+  constexpr int initialArraySize = 100;
   SortVisualizer visualizer(initialArraySize);
   int desiredArraySize = initialArraySize;
   float sortSpeed = 1.0f;
@@ -50,7 +50,7 @@ int main(int, char **) {
 
   bool done = false;
   while (!done) {
-    Uint32 frameStart = SDL_GetTicks();
+    const Uint32 frameStart = SDL_GetTicks();
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
       ImGui_ImplSDL2_ProcessEvent(&event);

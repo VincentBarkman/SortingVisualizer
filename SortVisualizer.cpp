@@ -53,7 +53,7 @@ void SortVisualizer::Step() {
     Update(1.0f);
 }
 
-void SortVisualizer::Update(float sortSpeed) {
+void SortVisualizer::Update(const float sortSpeed) {
     int steps = static_cast<int>(sortSpeed);
     if (steps < 1) steps = 1;
     for (int step = 0; step < steps; ++step) {
@@ -118,7 +118,7 @@ void SortVisualizer::Update(float sortSpeed) {
                 if (gnome_index == 0 || array[gnome_index] >= array[gnome_index - 1]) {
                     gnome_index++;
                 } else {
-                    int temp = array[gnome_index];
+                    const int temp = array[gnome_index];
                     array[gnome_index] = array[gnome_index - 1];
                     array[gnome_index - 1] = temp;
                     swaps++;
